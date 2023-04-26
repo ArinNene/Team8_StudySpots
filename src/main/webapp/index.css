@@ -1,0 +1,73 @@
+@charset "UTF-8";
+
+.map-container {
+	display: flex;
+	min-height: calc(100vh - 70px);
+}
+
+#map {
+  height: 100%;
+}
+
+/* 
+ * Optional: Makes the sample page fill the window. 
+ */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* used https://www.youtube.com/watch?v=8kxYqoY2WwE&list=PL2rFahu9sLJ2QuJaKKYDaJp0YqjFCDCtN&index=6&ab_channel=GoogleMapsPlatform */
+.marker {
+	padding: 0.5rem;
+	background-color: #710193;
+	transition: all 0.3s ease-out;
+	position: relative;
+	width: 75px;
+	border-radius: 5px;
+	overflow: hidden;
+	color: white;
+	z-index: 999;
+}
+
+.marker:after {
+	position: absolute;
+	top: 0.75rem;
+	right: 0.75rem;
+	font-size: 0.75rem;
+	opacity: 1;
+}
+
+.marker h2, .marker p {
+	margin: 0;
+}
+
+.marker:hover {
+	width: 200px;
+	background-color: #BE93D4;
+	color: white;
+}
+
+.address {
+	opacity: 1;
+	position: absolute;
+	top: 1rem;
+	right: 1rem;
+	animation: fadeIn 1s;
+}
+
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+
+	10% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
+	}
+}

@@ -1,0 +1,8 @@
+*mysql-connector-j-8.0.31.jar
+*mysql-connector-j-8.0.32.jar
+.classpath
+.project
+.settings
+*localproperties.java
+*.DS_Store
+*MANIFEST.MF
