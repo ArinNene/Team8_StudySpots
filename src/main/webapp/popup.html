@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> popup </title>
+</head>
+<body>
+    <div id="content">
+        <button onclick="search()">Click me</button>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+
+        function search(){
+			// console.log("Inside submit")
+            const apikey = "AIzaSyCpCVaKxl81vxeIZ7_-bpF7Zj_2x1vZ34s";
+            const location = "Leavey%20Library"
+
+			// const url = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?fields=formatted_address%2Cname%2Crating%2Copening_hours%2Cgeometry&input=" + location + "&inputtype=textquery&key=" + apikey;
+
+            const mapsURL = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/findplacefromtext/json" + 
+            "?fields=formatted_address%2Cname%2Crating%2Copening_hours&input=" + location + "&inputtype=textquery&key=" + apikey;
+
+			$.ajax({
+				url: mapsURL,
+				dataType: 'json',
+				success: function(data) {
+					console.log(data);
+
+				},
+				error: function(e) {
+					alert("AJAX error")
+					console.log(e)
+				}
+			})
+
+
+			return false;
+		}
+
+    </script>
+</body>
+</html>
