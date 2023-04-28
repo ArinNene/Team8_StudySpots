@@ -130,7 +130,7 @@ public class Location extends HttpServlet {
 				ArrayList<Review> revs = new ArrayList<>();
 				int userId = Integer.parseInt(userIdS);
 				st = conn.createStatement();
-				rs = st.executeQuery("SELECT * FROM LocationReview WHERE user_id = " + userId);
+				rs = st.executeQuery("SELECT USCStudySpots.LocationReview.*, USCStudySpots.Locations.location_name FROM USCStudySpots.LocationReview INNER JOIN USCStudySpots.Locations ON USCStudySpots.LocationReview.location_id=USCStudySpots.Locations.location_id WHERE user_id=" + userId);
 				if(!rs.next()) {
 					pw.write(gson.toJson(-1));
 					pw.flush();
