@@ -27,7 +27,6 @@ public class Register extends HttpServlet {
 	    String lastName = request.getParameter("lastName");
 	    String userEmail = request.getParameter("email");
 	    String password = request.getParameter("password");
-	    LocalProperties localproperties = new LocalProperties();
 
 	 
 	    int id = 0;
@@ -40,7 +39,7 @@ public class Register extends HttpServlet {
 	        Class.forName("com.mysql.cj.jdbc.Driver");
 	        //System.out.println("made it here" + "fname=" + firstName);
 	        
-	    	conn = DriverManager.getConnection(localproperties.MYSQL_LINK, localproperties._un, localproperties._pw);
+	    	conn = DriverManager.getConnection(localproperties.MYSQL_LINK);
 	        
 	 
 	        String query = "INSERT IGNORE INTO Users (firstName, lastName, password, userEmail) VALUES (?, ?, ?, ?)";
@@ -55,11 +54,12 @@ public class Register extends HttpServlet {
 	        int rowsInserted = pst.executeUpdate();
 	        if (rowsInserted > 0) {
 	        	try {
-	        	    response.setContentType("text/plain");
+	        	    //response.setContentType("text/plain");
 	        	    rs = pst.getGeneratedKeys();
 	        	    if (rs.next()) {
 	                    id = rs.getInt(1);
 	                }
+	        	    System.out.println(id);
 	                response.setContentType("application/json");
 	                PrintWriter pw = response.getWriter();
 	                JsonObject jo = new JsonObject();

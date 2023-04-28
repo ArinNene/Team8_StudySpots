@@ -5,7 +5,8 @@ function handleLogin() {
 
 	var xhttp = new XMLHttpRequest(); 
   	//xhttp.open("GET", "LoginServlet?firstName=" + firstName + "&lastName=" + lastName + "&email=" + email + "&password=" + password);
-  	xhttp.open("GET", "LoginServlet?email=" + email + "&password=" + password, true);
+  	var requestStr = "LoginServlet?email=" + email + "&password=" + password;
+  	xhttp.open("GET", requestStr, true);
   	xhttp.onreadystatechange = function() {
   	if (xhttp.readyState === xhttp.DONE) {
 		var response = JSON.parse(this.responseText);

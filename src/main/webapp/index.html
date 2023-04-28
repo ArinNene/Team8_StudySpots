@@ -5,8 +5,13 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>StudySpots</title>
     <script>
-		$(function(){
+	    $(function(){
+			if (sessionStorage.getItem("user_id") != "") {
+				$("#navbar").load("navbarSignedIn.html");
+			}
+			else {
 			$("#navbar").load("navbar.html");
+			}
 		});
 	</script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
