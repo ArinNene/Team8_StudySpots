@@ -27,6 +27,10 @@ public class Register extends HttpServlet {
 	    String lastName = request.getParameter("lastName");
 	    String userEmail = request.getParameter("email");
 	    String password = request.getParameter("password");
+<<<<<<< HEAD
+=======
+
+>>>>>>> 390763447d42f4a93a03db85ffee2fb65edca82a
 	 
 	    int id = 0;	    	    
 	    
@@ -51,11 +55,12 @@ public class Register extends HttpServlet {
 	        int rowsInserted = pst.executeUpdate();
 	        if (rowsInserted > 0) {
 	        	try {
-	        	    response.setContentType("text/plain");
+	        	    //response.setContentType("text/plain");
 	        	    rs = pst.getGeneratedKeys();
 	        	    if (rs.next()) {
 	                    id = rs.getInt(1);
 	                }
+	        	    System.out.println(id);
 	                response.setContentType("application/json");
 	                PrintWriter pw = response.getWriter();
 	                JsonObject jo = new JsonObject();

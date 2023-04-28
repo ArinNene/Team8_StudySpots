@@ -43,8 +43,13 @@ public class Login extends HttpServlet {
 	    try {
 	    	Class.forName("com.mysql.cj.jdbc.Driver");
 	    	
+<<<<<<< HEAD
 	    	 conn = DriverManager.getConnection(localproperties.MYSQL_LINK);
 	        
+=======
+	    	conn = DriverManager.getConnection(localproperties.MYSQL_LINK);
+	    	 
+>>>>>>> 390763447d42f4a93a03db85ffee2fb65edca82a
 	        String query = "SELECT * FROM Users WHERE userEmail=? AND password=?";
 	        pst = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
@@ -60,7 +65,7 @@ public class Login extends HttpServlet {
 	        	    if (rs.next()) {
 	                    id = rs.getInt(1);
 	                }  
-	                response.setContentType("application/json");
+	                response.setContentType("application/text");
 	                PrintWriter pw = response.getWriter();
 	                JsonObject jo = new JsonObject();
 	                jo.addProperty("success", id);
@@ -70,7 +75,7 @@ public class Login extends HttpServlet {
 	        } else {
 	            // login failed
 	            // return an error string
-                response.setContentType("application/json");
+                response.setContentType("application/text");
                 PrintWriter pw = response.getWriter();
                 JsonObject jo = new JsonObject();
                 jo.addProperty("success", "false");
