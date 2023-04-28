@@ -6,3 +6,4 @@
 *localproperties.java
 *.DS_Store
 *MANIFEST.MF
+*localproperties.class
