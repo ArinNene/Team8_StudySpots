@@ -191,4 +191,55 @@ public class Location extends HttpServlet {
 			}
 		}
 	}
+	
+	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		
+		Connection conn = null;
+		Statement st = null;
+		ResultSet rs = null;
+		
+		Gson gson = new GsonBuilder().create();
+		PrintWriter pw = res.getWriter();
+		res.setContentType("application/json");
+		res.setCharacterEncoding("UTF-8");
+		
+		try {
+			conn = DriverManager.getConnection(localproperties.MYSQL_LINK);
+			String userIdS = req.getParameter("userId");
+			if(userIdS == null || userIdS.isBlank()) {
+				res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+				String error = "Info missing";
+				pw.write(gson.toJson(error));
+				pw.flush();
+			}
+			
+			ArrayList<Review> revs = new ArrayList<>();
+			int userId = Integer.parseInt(userIdS);
+			st = conn.createStatement();
+			rs = st.executeQuery("SELECT USCStudySpots.LocationReview.*, USCStudySpots.Locations.location_name FROM USCStudySpots.LocationReview INNER JOIN USCStudySpots.Locations ON USCStudySpots.LocationReview.location_id=USCStudySpots.Locations.location_id WHERE user_id=" + userId);
+			if(!rs.next()) {
+				System.out.println("REACHED HERE!");
+				pw.write(gson.toJson(-1));
+				pw.flush();
+			} else {
+				while(rs.next()) revs.add(new Review(rs.getInt("review_id"), rs.getInt("location_id"), rs.getInt("user_id"), rs.getInt("rating"), rs.getString("location_review"), rs.getString("location_name")));
+				pw.write(gson.toJson(revs));
+				pw.flush();
+			}
+		} catch (SQLException e) {
+			System.out.println("SQLError in REVIEWS");
+			System.out.println(e.getMessage());
+			pw.write(gson.toJson(-1));
+			pw.flush();
+		} finally {
+			try {
+				if(st != null) st.close();
+				if(conn != null) conn.close();
+				if(rs != null) rs.close();
+			} catch (SQLException sqle) {
+				System.out.println("SQL Error");
+				System.out.println(sqle.getMessage());
+			}
+		}
+	}
 }
