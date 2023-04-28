@@ -3,16 +3,14 @@ public class Review {
 	int id;
 	int locationId;
 	int userId;
-	int rating;
 	String locationReview;
-	String locationName;
+	String username;
 	
-	public Review(int i, int l, int u, int rating, String r, String name) {
+	public Review(int i, int l, int u, String r, String us) {
 		id = i;
 		locationId = l;
 		userId = u;
-		this.rating = rating;
 		locationReview = r;
-		locationName = name;
+		username = us;
 	}
 }
