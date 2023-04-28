@@ -3,8 +3,10 @@
  */
 
  function handleRegister() {
-    const firstName = document.getElementById("firstName").value;
-    const lastName = document.getElementById("lastName").value;
+	//console.log(document.getElementById("firstname").value);
+    const firstName = document.getElementById("firstname").value;
+    
+    const lastName = document.getElementById("lastname").value;
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
 
@@ -16,6 +18,10 @@
 		if (response === '404') {
 			alert("Username or Email already taken");
 		}
+		else {
+                // Redirect to index.html on successful registration
+                window.location.href = "index.html";
+            }
 	}
 	}
 	xhttp.send();

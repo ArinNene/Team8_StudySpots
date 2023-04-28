@@ -65,7 +65,7 @@
 </head>
 <body>
 <div id="navbar"></div>
-    		<form id="login" action ="#" onsubmit="login(event)" method="get">
+    		<form id="login" action ="LoginServlet" method="GET">
     			 <fieldset>
     				<legend>Login</legend>
     					<label for="email">Email:</label>
@@ -74,7 +74,7 @@
 		      			<label for="password">Password:</label>
 		      			<input type="password" id="password" name="password" required>
 		      			
-						<input type="submit" value="Submit" id="signup-submit">
+						<input type="submit" value="Submit" onClick = "handleLogin()" id="signup-submit">
     			</fieldset>
     		</form>  
 

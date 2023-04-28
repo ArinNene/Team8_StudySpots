@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -33,9 +34,10 @@ public class Register extends HttpServlet {
 	        //System.out.println("made it here222"); 
 	        
 	        Class.forName("com.mysql.cj.jdbc.Driver");
-	        System.out.println("made it here" + "fname=" + firstName);
+	        //System.out.println("made it here" + "fname=" + firstName);
 	        
 	        conn = DriverManager.getConnection(localproperties.MYSQL_LINK);
+	        
 	 
 	        String query = "INSERT IGNORE INTO Users (firstName, lastName, password, userEmail) VALUES (?, ?, ?, ?)";
 	        pst = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -46,8 +48,8 @@ public class Register extends HttpServlet {
 	        pst.setString(4, userEmail);
 	   
 
-	        //int rowsInserted = pst.executeUpdate();
-	        /*if (rowsInserted > 0) {
+	        int rowsInserted = pst.executeUpdate();
+	        if (rowsInserted > 0) {
 	        	try {
 	        	    response.setContentType("text/plain");
 	        	    rs = pst.getGeneratedKeys();
@@ -71,7 +73,7 @@ public class Register extends HttpServlet {
 	    		} catch (IOException e) {
 	    			e.printStackTrace();
 	    		}
-	        }*/
+	        }
 	        } catch (SQLException sqle) {
 	        	System.out.println("SQL Exception: " + sqle.getMessage());
 	        } catch (ClassNotFoundException e1) {
