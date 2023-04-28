@@ -32,7 +32,6 @@ public class Location extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		
 		Connection conn = null;
 		Statement st = null;
 		ResultSet rs = null;
@@ -79,7 +78,7 @@ public class Location extends HttpServlet {
 					System.out.println(sqle.getMessage());
 				}
 			}
-		} else if(method.equals("REVIEWS")) {
+		} else if(method.equals("LOCATION_REVIEWS")) {
 			try {
 				conn = DriverManager.getConnection(localproperties.MYSQL_LINK);
 				String locationIdS = req.getParameter("locationId");
@@ -94,6 +93,44 @@ public class Location extends HttpServlet {
 				int locationId = Integer.parseInt(locationIdS);
 				st = conn.createStatement();
 				rs = st.executeQuery("SELECT * FROM LocationReview WHERE location_id = " + locationId);
+				if(!rs.next()) {
+					pw.write(gson.toJson(-1));
+					pw.flush();
+				} else {
+					while(rs.next()) revs.add(new Review(rs.getInt("review_id"), rs.getInt("location_id"), rs.getInt("user_id"), rs.getInt("rating"), rs.getString("location_review")));
+					pw.write(gson.toJson(revs));
+					pw.flush();
+				}
+			} catch (SQLException e) {
+				System.out.println("SQLError in REVIEWS");
+				System.out.println(e.getMessage());
+				pw.write(gson.toJson(-1));
+				pw.flush();
+			} finally {
+				try {
+					if(st != null) st.close();
+					if(conn != null) conn.close();
+					if(rs != null) rs.close();
+				} catch (SQLException sqle) {
+					System.out.println("SQL Error");
+					System.out.println(sqle.getMessage());
+				}
+			}
+		} else if(method.equals("USER_REVIEWS")) {
+			try {
+				conn = DriverManager.getConnection(localproperties.MYSQL_LINK);
+				String userIdS = req.getParameter("userId");
+				if(userIdS == null || userIdS.isBlank()) {
+					res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+					String error = "Info missing";
+					pw.write(gson.toJson(error));
+					pw.flush();
+				}
+				
+				ArrayList<Review> revs = new ArrayList<>();
+				int userId = Integer.parseInt(userIdS);
+				st = conn.createStatement();
+				rs = st.executeQuery("SELECT * FROM LocationReview WHERE user_id = " + userId);
 				if(!rs.next()) {
 					pw.write(gson.toJson(-1));
 					pw.flush();

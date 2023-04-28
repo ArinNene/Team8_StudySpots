@@ -27,12 +27,8 @@ public class Register extends HttpServlet {
 	    String lastName = request.getParameter("lastName");
 	    String userEmail = request.getParameter("email");
 	    String password = request.getParameter("password");
-	    LocalProperties localproperties = new LocalProperties();
-
 	 
-	    int id = 0;
-	    
-	    
+	    int id = 0;	    	    
 	    
 	    try {
 	        //System.out.println("made it here222"); 
@@ -40,7 +36,7 @@ public class Register extends HttpServlet {
 	        Class.forName("com.mysql.cj.jdbc.Driver");
 	        //System.out.println("made it here" + "fname=" + firstName);
 	        
-	    	conn = DriverManager.getConnection(localproperties.MYSQL_LINK, localproperties._un, localproperties._pw);
+	    	conn = DriverManager.getConnection(localproperties.MYSQL_LINK);
 	        
 	 
 	        String query = "INSERT IGNORE INTO Users (firstName, lastName, password, userEmail) VALUES (?, ?, ?, ?)";
