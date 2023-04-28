@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("/LoginServlet")
 public class Login extends HttpServlet {
-   
+	
 	Connection conn = null;
 	PreparedStatement pst = null;
 	ResultSet rs = null;
@@ -43,11 +43,8 @@ public class Login extends HttpServlet {
 	    	
 	    	conn = DriverManager.getConnection(localproperties.MYSQL_LINK);
 	        
-	        String query = "SELECT * FROM Users WHERE userEmail=? AND password=?";
-	        pst = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-
-	        pst.setString(1, userEmail);
-	        pst.setString(2, password);
+	        String query = "SELECT * FROM Users WHERE userEmail='"+ userEmail +"' AND password='" + password +"'";
+	        pst = conn.prepareStatement(query);
 
 	        ResultSet rs = pst.executeQuery();
 	        
@@ -55,10 +52,7 @@ public class Login extends HttpServlet {
 	        if (rs.next()) {
 	            // login successful
 	        	response.setContentType("text/plain");
-	        	 rs = pst.getGeneratedKeys();
-	        	    if (rs.next()) {
-	                    id = rs.getInt(1);
-	                }  
+                id = rs.getInt("userId");
 	        	String r = Integer.toString(id);
 	            response.getWriter().write(r);
 	            response.getWriter().flush();

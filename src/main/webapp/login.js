@@ -9,12 +9,12 @@ function handleLogin() {
   	xhttp.open("GET", requestStr, true);
   	xhttp.onreadystatechange = function() {
   	if (xhttp.readyState === xhttp.DONE) {
-		var response = JSON.parse(this.responseText);
-		if (response.success == "false") {
+		var response = this.responseText;
+		if (response === '404') {
 			alert("Could not login");
 		} else {
                 // Redirect to index.html on successful login
-                sessionStorage.setItem("user_id", response.success)
+                sessionStorage.setItem("user_id", response)
                 window.location.href = "index.html";
             }
 	}
