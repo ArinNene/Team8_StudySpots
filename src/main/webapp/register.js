@@ -3,6 +3,7 @@
  */
 
  function handleRegister() {
+	 event.preventDefault();
 	//console.log(document.getElementById("firstname").value);
     const firstName = document.getElementById("firstname").value;
     
@@ -14,12 +15,13 @@
   	xhttp.open("GET", "RegisterServlet?firstName=" + firstName + "&lastName=" + lastName + "&email=" + email + "&password=" + password);
   	xhttp.onreadystatechange = function() {
   	if (xhttp.readyState === xhttp.DONE) {
-		var response = xhttp.responseText;
-		if (response === '404') {
+		var response = JSON.parse(this.responseText);
+		if (response.success == "false") {
 			alert("Username or Email already taken");
 		}
 		else {
                 // Redirect to index.html on successful registration
+                sessionStorage.setItem("user_id", response.success)
                 window.location.href = "index.html";
             }
 	}

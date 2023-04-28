@@ -35,13 +35,13 @@ public class Login extends HttpServlet {
 		//System.out.println("connected to Servlet");
 	    String userEmail = request.getParameter("email");
 	    String password = request.getParameter("password");
-	    
+	    LocalProperties localproperties = new LocalProperties();
 	    int id = 0;
 	    
 	    try {
 	    	Class.forName("com.mysql.cj.jdbc.Driver");
 	    	
-	    	 conn = DriverManager.getConnection(localproperties.MYSQL_LINK);
+	    	 conn = DriverManager.getConnection(localproperties.MYSQL_LINK, localproperties._un, localproperties._pw);
 	        
 	        String query = "SELECT * FROM Users WHERE userEmail=? AND password=?";
 	        pst = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);

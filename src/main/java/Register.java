@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -9,6 +10,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.JsonObject;
 
 @WebServlet("/RegisterServlet")
 public class Register extends HttpServlet {
@@ -24,7 +27,8 @@ public class Register extends HttpServlet {
 	    String lastName = request.getParameter("lastName");
 	    String userEmail = request.getParameter("email");
 	    String password = request.getParameter("password");
-	    
+	    LocalProperties localproperties = new LocalProperties();
+
 	 
 	    int id = 0;
 	    
@@ -36,7 +40,7 @@ public class Register extends HttpServlet {
 	        Class.forName("com.mysql.cj.jdbc.Driver");
 	        //System.out.println("made it here" + "fname=" + firstName);
 	        
-	        conn = DriverManager.getConnection(localproperties.MYSQL_LINK);
+	    	conn = DriverManager.getConnection(localproperties.MYSQL_LINK, localproperties._un, localproperties._pw);
 	        
 	 
 	        String query = "INSERT IGNORE INTO Users (firstName, lastName, password, userEmail) VALUES (?, ?, ?, ?)";
@@ -56,20 +60,26 @@ public class Register extends HttpServlet {
 	        	    if (rs.next()) {
 	                    id = rs.getInt(1);
 	                }
-	        	    String r = Integer.toString(id);
-	    			response.getWriter().write(r);
-	    			response.getWriter().flush();
-	    			response.getWriter().close();
+	                response.setContentType("application/json");
+	                PrintWriter pw = response.getWriter();
+	                JsonObject jo = new JsonObject();
+	                jo.addProperty("success", id);
+	                pw.print(jo.toString());
+	                pw.flush();
+	                pw.close();
 	    		} catch (IOException e) {
 	    			e.printStackTrace();
 	    		}
         	}
 	        else {
 	        	try {
-	        	    response.setContentType("text/plain");
-	    			response.getWriter().write("404");
-	    			response.getWriter().flush();
-	    			response.getWriter().close();
+	                response.setContentType("application/json");
+	                PrintWriter pw = response.getWriter();
+	                JsonObject jo = new JsonObject();
+	                jo.addProperty("success", "false");
+	                pw.print(jo.toString());
+	                pw.flush();
+	                pw.close();
 	    		} catch (IOException e) {
 	    			e.printStackTrace();
 	    		}
