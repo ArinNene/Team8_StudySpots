@@ -42,7 +42,7 @@
             const location = "Leavey%20Library"
 
             const mapsURL = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/findplacefromtext/json" + 
-            "?fields=photos%2Cformatted_address%2Cname%2Crating%2Copening_hours&input=" + location + "&inputtype=textquery&key=" + apikey;
+            "?fields=formatted_address%2Cname%2Crating&input=" + location + "&inputtype=textquery&key=" + apikey;
 
 			$.ajax({
 				url: mapsURL,
@@ -50,7 +50,8 @@
 				success: function(data) {
 					console.log(data);
 
-					createRow(data.candidates[0]);
+
+					// createPopUp(data.candidates[0]);
 
 				},
 				error: function(e) {
@@ -64,56 +65,39 @@
 			return false;
 		}
 
-		function returnImage(photo_reference) {
-			const apikey = "AIzaSyCpCVaKxl81vxeIZ7_-bpF7Zj_2x1vZ34s";
-			const photoInfo = photo_reference;
+		function createPopUp(place) {
+			const html = createString(place);
+			const infowindow = new google.maps.InfoWindow({
+				content: html,
+				ariaLabel: place.name,
+			});
 
-			const photoURL = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=" + photoInfo + "&key=" + apikey;
-			//CnRvAAAAwMpdHeWlXl-lH0vp7lez4znKPIWSWvgvZFISdKx45AwJVP1Qp37YOrH7sqHMJ8C-vBDC546decipPHchJhHZL94RcTUfPa1jWzo-rSHaTlbNtjh-N68RkcToUCuY9v2HNpo5mziqkir37WU8FJEqVBIQ4k938TI3e7bf8xq-uwDZcxoUbO_ZJzPxremiQurAYzCTwRhE_V0
-			const photo = "";
-
-			console.log(photoURL);
-
-			$.ajax({
-				url: photoURL,
-				dataType: 'json',
-				success: function(data) {
-					console.log("trying to get data");
-
-				},
-				error: function(e) {
-					alert("AJAX error in photo")
-					console.log(e)
-					
-				}
-			})
-
-			return photo;
+			marker.addListener("click", () => {
+				infowindow.open({
+				anchor: marker,
+				map: map,
+				});
+			});
 		}
 
-
-		function createRow(place){
-			var div = document.createElement('div');
-
-			var name = document.createElement('h1');
-			var address = document.createElement('p');
-			var rating = document.createElement('p');
-			var photo = document.createElement('img');
-
-			name.innerHTML = place.name
-			address.innerHTML = place.formatted_address;
-			rating.innerHTML = place.rating;
-			// photo.src = returnImage(place.photos[0].photo_reference); // todo: Fill Out Info
-			//image is blocked by maps api, does not work.
-
-			div.appendChild(name);
-			div.appendChild(address);
-			div.appendChild(rating);
-			// div.appendChild(photo);
-
-			document.querySelector('body').appendChild(div);
+		function createString(place) {
+			const contentString =
+				'<div id="content">' +
+				'<div id="siteNotice">' +
+				"</div>" +
+				`<h1 id="firstHeading" class="firstHeading">${place.name}</h1>` +
+				'<div id="bodyContent">' +
+				`<p> ${place.formatted_address}, ${place.rating}/5 </p>` +
+				`<p>Attribution: GoogleMaps API, <a target="_blank" href="${place.url}"> ${place.url} </a> </p>` +
+				"</div>" +
+				"</div>";
+			return contentString;
 		}
-
+		
     </script>
+	
 </body>
 </html>
+
+
+
