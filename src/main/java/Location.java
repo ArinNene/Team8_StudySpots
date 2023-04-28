@@ -135,7 +135,7 @@ public class Location extends HttpServlet {
 					pw.write(gson.toJson(-1));
 					pw.flush();
 				} else {
-					while(rs.next()) revs.add(new Review(rs.getInt("review_id"), rs.getInt("location_id"), rs.getInt("user_id"), rs.getInt("rating"), rs.getString("location_review")));
+					while(rs.next()) revs.add(new Review(rs.getInt("review_id"), rs.getInt("location_id"), rs.getInt("user_id"), rs.getInt("rating"), rs.getString("location_review"), rs.getString("location_name")));
 					pw.write(gson.toJson(revs));
 					pw.flush();
 				}
