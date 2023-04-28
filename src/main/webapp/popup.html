@@ -6,25 +6,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> popup </title>
 </head>
+	<style>
+		div {
+			width: 50%;
+			height: auto;
+		}
+	</style>
 <body>
     <div id="content">
         <button onclick="search()">Click me</button>
+
+		<div>
+			<h1> <b> Leavey Library </b> </h1>
+			<p>651 W 35th St, Los Angeles, CA 90089</p>
+			<p>
+				The Thomas and Dorothy Leavey Library is one of the two main undergraduate libraries at the University of Southern California, United States. It was named in memory of Thomas E. Leavey, the founder of Farmers Insurance Group
+			</p>
+		</div>
+
+
     </div>
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script>
+		//info on how to get this to pop up: https://developers.google.com/maps/documentation/javascript/examples/infowindow-simple
+		//currently implemented with making it pop up to the screen simple solution can make it a string like the example
 
         function search(){
-			// console.log("Inside submit")
+		// function search(const loc){
+			// const location = loc;
+
             const apikey = "AIzaSyCpCVaKxl81vxeIZ7_-bpF7Zj_2x1vZ34s";
             const location = "Leavey%20Library"
 
-			// const url = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?fields=formatted_address%2Cname%2Crating%2Copening_hours%2Cgeometry&input=" + location + "&inputtype=textquery&key=" + apikey;
-
             const mapsURL = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/findplacefromtext/json" + 
-            "?fields=formatted_address%2Cname%2Crating%2Copening_hours&input=" + location + "&inputtype=textquery&key=" + apikey;
+            "?fields=photos%2Cformatted_address%2Cname%2Crating%2Copening_hours&input=" + location + "&inputtype=textquery&key=" + apikey;
 
 			$.ajax({
 				url: mapsURL,
@@ -32,15 +50,68 @@
 				success: function(data) {
 					console.log(data);
 
+					createRow(data.candidates[0]);
+
 				},
 				error: function(e) {
 					alert("AJAX error")
 					console.log(e)
+					
 				}
 			})
 
 
 			return false;
+		}
+
+		function returnImage(photo_reference) {
+			const apikey = "AIzaSyCpCVaKxl81vxeIZ7_-bpF7Zj_2x1vZ34s";
+			const photoInfo = photo_reference;
+
+			const photoURL = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=" + photoInfo + "&key=" + apikey;
+			//CnRvAAAAwMpdHeWlXl-lH0vp7lez4znKPIWSWvgvZFISdKx45AwJVP1Qp37YOrH7sqHMJ8C-vBDC546decipPHchJhHZL94RcTUfPa1jWzo-rSHaTlbNtjh-N68RkcToUCuY9v2HNpo5mziqkir37WU8FJEqVBIQ4k938TI3e7bf8xq-uwDZcxoUbO_ZJzPxremiQurAYzCTwRhE_V0
+			const photo = "";
+
+			console.log(photoURL);
+
+			$.ajax({
+				url: photoURL,
+				dataType: 'json',
+				success: function(data) {
+					console.log("trying to get data");
+
+				},
+				error: function(e) {
+					alert("AJAX error in photo")
+					console.log(e)
+					
+				}
+			})
+
+			return photo;
+		}
+
+
+		function createRow(place){
+			var div = document.createElement('div');
+
+			var name = document.createElement('h1');
+			var address = document.createElement('p');
+			var rating = document.createElement('p');
+			var photo = document.createElement('img');
+
+			name.innerHTML = place.name
+			address.innerHTML = place.formatted_address;
+			rating.innerHTML = place.rating;
+			// photo.src = returnImage(place.photos[0].photo_reference); // todo: Fill Out Info
+			//image is blocked by maps api, does not work.
+
+			div.appendChild(name);
+			div.appendChild(address);
+			div.appendChild(rating);
+			// div.appendChild(photo);
+
+			document.querySelector('body').appendChild(div);
 		}
 
     </script>
