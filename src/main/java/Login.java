@@ -1,6 +1,7 @@
 
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -13,6 +14,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.JsonObject;
 
 /**
  * Servlet implementation class Login
@@ -54,22 +57,27 @@ public class Login extends HttpServlet {
 	        
 	        if (rs.next()) {
 	            // login successful
-	        	response.setContentType("text/plain");
 	        	 rs = pst.getGeneratedKeys();
 	        	    if (rs.next()) {
 	                    id = rs.getInt(1);
 	                }  
-	        	String r = Integer.toString(id);
-	            response.getWriter().write(r);
-	            response.getWriter().flush();
-	            response.getWriter().close();
+	                response.setContentType("application/json");
+	                PrintWriter pw = response.getWriter();
+	                JsonObject jo = new JsonObject();
+	                jo.addProperty("success", id);
+	                pw.print(jo.toString());
+	                pw.flush();
+	                pw.close();
 	        } else {
 	            // login failed
 	            // return an error string
-	            response.setContentType("text/plain");
-	            response.getWriter().write("404");
-	            response.getWriter().flush();
-	            response.getWriter().close();
+                response.setContentType("application/json");
+                PrintWriter pw = response.getWriter();
+                JsonObject jo = new JsonObject();
+                jo.addProperty("success", "false");
+                pw.print(jo.toString());
+                pw.flush();
+                pw.close();
 	        }} catch (ClassNotFoundException | SQLException e1) {
 	            e1.printStackTrace();
 	        } finally {
