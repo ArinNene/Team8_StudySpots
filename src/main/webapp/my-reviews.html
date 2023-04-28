@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<script>
+	    $(function(){
+			if (sessionStorage.getItem("user_id") != "") {
+				$("#navbar").load("navbarSignedIn.html");
+			}
+			else {
+			$("#navbar").load("navbar.html");
+			}
+		});
+	</script>
+	<style>
+		body{
+			background: rgb(206,195,236);
+			background: radial-gradient(circle, rgba(206,195,236,1) 37%, rgba(124,13,224,1) 100%);
+		}
+	</style>
+	
+	<script type="module" src="./my-reviews.js"></script>
+</head>
+<body>
+	<div id="navbar">
+	</div>
+	
+	<div id="review-container">
+	
+	</div>
+	
+</body>
+</html>
