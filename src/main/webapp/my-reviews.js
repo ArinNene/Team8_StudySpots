@@ -8,8 +8,8 @@ window.onload = function() {
   xhttp.onreadystatechange = function() {
 	  if (xhttp.readyState === xhttp.DONE) {
 		  var data = JSON.parse(xhttp.responseText);
-		  if(data == -1) alert("No reviews yet!");
-		  else data.forEach(function(review) {
+		  if(data.length === 0) alert("No reviews yet!");
+		  else {console.log(data); data.forEach(function(review) {
 		        var card = document.createElement('div');
 		        card.classList.add('card');
 		
@@ -51,6 +51,7 @@ window.onload = function() {
 		        var container = document.getElementById('review-container');
 		        container.appendChild(card);
 	      });
+	      }
 	  }
   }
 

@@ -18,61 +18,10 @@ async function initMap() {
 					  mapId: "f3947d79eba2c6f"}
 			  });
 			  const image = "img/purple_Marker.png"
-			  const marker = new google.maps.Marker({
-			    position: { lat: 34.02204940396223, lng: -118.28288224629772 },
-			    map : map,
-			    title: "Leavey Library",
-			    icon: image
-			  });
-			  search(data[1].url, marker, data[1].id);
-			  
-			  const marker2 = new google.maps.Marker({
-			    position: { lat: 34.02672700908403, lng: -118.27787745112164 },
-			    map : map,
-			    title: "Starbucks",
-			    icon: image
-			  });
-			  search(data[0].url, marker2, data[0].id);
-			  
-			  const marker3 = new google.maps.Marker({
-			    position: { lat: 34.02280700654238, lng: -118.29219754150525 },
-			    map : map,
-			    title: "It's Boba Time!",
-			    icon: image
-			  });
-			  search(data[2].url, marker3, data[2].id);
-			  
-			  const marker4 = new google.maps.Marker({
-			    position: { lat: 34.02952079190507, lng: -118.27671604256105 },
-			    map : map,
-			    title: "St. Vincent de Paul Roman Catholic Church",
-			    icon: image
-			  });
-			  search(data[3].url, marker4, data[3].id);
-			  
-			  const marker5 = new google.maps.Marker({
-			    position: { lat: 34.04155023682147, lng: -118.23265898862519 },
-			    map : map,
-			    title: "Verve Coffee",
-			    icon: image
-			  });
-			  search(data[4].url, marker5, data[4].id);
-			  
-			  const marker6 = new google.maps.Marker({
-			    position: { lat: 34.02543959124908, lng: -118.28529505463163 },
-			    map : map,
-			    title: "Dulce",
-			    icon: image
-			  });
-			  search(data[5].url, marker6, data[5].id);
-			  
-			  const marker7 = new google.maps.Marker({
-			    position: { lat: 34.02518619024948, lng: -118.28449970330696 },
-			    map : map,
-			    title: "CAVA",
-			    icon: image
-			  });
-			  search(data[6].url, marker7, data[6].id);
+			  for (var i = 0; i < data.length; i++) {
+				  const marker = new google.maps.Marker;
+				  search(data[i].url,marker,data[i].id);
+			  }
 		}
 	}
 }

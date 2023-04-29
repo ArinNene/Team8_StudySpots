@@ -219,17 +219,12 @@ public class Location extends HttpServlet {
 			
 			ArrayList<Review> revs = new ArrayList<>();
 			int userId = Integer.parseInt(userIdS);
+			System.out.println("Userid: " + userId);
 			st = conn.createStatement();
 			rs = st.executeQuery("SELECT USCStudySpots.LocationReview.*, USCStudySpots.Locations.location_name FROM USCStudySpots.LocationReview INNER JOIN USCStudySpots.Locations ON USCStudySpots.LocationReview.location_id=USCStudySpots.Locations.location_id WHERE user_id=" + userId);
-			if(!rs.next()) {
-				System.out.println("REACHED HERE!");
-				pw.write(gson.toJson(-1));
-				pw.flush();
-			} else {
-				while(rs.next()) revs.add(new Review(rs.getInt("review_id"), rs.getInt("location_id"), rs.getInt("user_id"), rs.getInt("rating"), rs.getString("location_review"), rs.getString("location_name")));
-				pw.write(gson.toJson(revs));
-				pw.flush();
-			}
+			while(rs.next()) revs.add(new Review(rs.getInt("review_id"), rs.getInt("location_id"), rs.getInt("user_id"), rs.getInt("rating"), rs.getString("location_review"), rs.getString("location_name")));
+			pw.write(gson.toJson(revs));
+			pw.flush();
 		} catch (SQLException e) {
 			System.out.println("SQLError in REVIEWS");
 			System.out.println(e.getMessage());
