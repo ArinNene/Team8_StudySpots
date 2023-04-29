@@ -127,6 +127,7 @@ function createString(place, id, callback) {
     if (rxhttp.readyState === rxhttp.DONE) {
       var data = JSON.parse(rxhttp.responseText);
       var openText = place.opening_hours.open_now ? "Open Now" : "Closed";
+      var reviewText = data.length == 0 ? "No reviews yet" : "Reviews:"
       var contentString =
         '<div id="content">' +
         '<div id="siteNotice">' +
@@ -137,7 +138,7 @@ function createString(place, id, callback) {
         `<p> Open Now: ${openText} </p>` +
         `<p>Attribution: GoogleMaps API </p>` +
         `<a href = "./AddReview.html?locationId=` + id + `&location_name=` + place.name + `">Add Review</a></p>` +
-        '<h2>Reviews:</h2>';
+        `<h2>${reviewText}</h2>`;
       for (var i = 0; i < data.length; i++) {
 	contentString += '<div class="user_review">';
         contentString += '<h3>' + data[i].username + ': </h3>';
