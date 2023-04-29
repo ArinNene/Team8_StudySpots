@@ -134,7 +134,7 @@ function createString(place, id, callback) {
         `<h1 id="firstHeading" class="firstHeading">${place.name}</h1>` +
         '<div id="bodyContent">' +
         `<p> ${place.formatted_address}, ${place.rating}/5 </p>` +
-        `<p> Open Now: ${place.opening_hours.open_now} </p>` +
+        `<p> Open Now: ${openText} </p>` +
         `<p>Attribution: GoogleMaps API </p>` +
         '<h2>Reviews:</h2>';
       for (var i = 0; i < data.length; i++) {
