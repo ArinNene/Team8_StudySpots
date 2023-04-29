@@ -6,7 +6,7 @@
     <title>StudySpots</title>
     <script>
 	    $(function(){
-			if (sessionStorage.getItem("user_id") != "") {
+			if (sessionStorage.getItem("user_id")) {
 				$("#navbar").load("navbarSignedIn.html");
 			}
 			else {

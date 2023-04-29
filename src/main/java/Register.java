@@ -57,11 +57,9 @@ public class Register extends HttpServlet {
 	                    id = rs.getInt(1);
 	                }
 	        	    System.out.println(id);
-	                response.setContentType("application/json");
+	                response.setContentType("text/plain");
 	                PrintWriter pw = response.getWriter();
-	                JsonObject jo = new JsonObject();
-	                jo.addProperty("success", id);
-	                pw.print(jo.toString());
+	                pw.print(id);
 	                pw.flush();
 	                pw.close();
 	    		} catch (IOException e) {

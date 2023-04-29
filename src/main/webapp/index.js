@@ -81,15 +81,13 @@ initMap();
         function search(mapsURL, marker, id){
 		// function search(const loc){
 			// const location = loc;
-
+		mapsURL = "https://proxy.cors.sh/" + mapsURL.substring(36);
            
 			$.ajax({
 				url: mapsURL,
+				headers: { 'x-cors-api-key': 'temp_d89d42176f2e61a5067d9d71846ac18b' },
 				dataType: 'json',
 				success: function(data) {
-					console.log(data);
-
-
 					createPopUp(data.candidates[0], marker, id);
 
 				},
@@ -105,7 +103,10 @@ initMap();
 		}
 		
 	function createPopUp(place, marker, id) {
-  		createString(place, id, function(contentString) {
+		var url_string = window.location;
+			var url = new URL(url_string);
+			const locationId = url.searchParams.get("locationId");
+  		createString(place, id, marker.title, function(contentString) {
     	const infowindow = new google.maps.InfoWindow({
       content: contentString,
       ariaLabel: place.name,
@@ -117,10 +118,17 @@ initMap();
         map: map,
       });
     });
+    
+    if(locationId && locationId == id) {
+		infowindow.open({
+        	anchor: marker,
+       	 	map: map,
+      	});
+	}
   });
 }
 
-function createString(place, id, callback) {
+function createString(place, id, name, callback) {
   var rxhttp = new XMLHttpRequest();
   rxhttp.open("GET", "LocationServlet?method=REVIEWS&locationId=" + id, true);
   rxhttp.onreadystatechange = function() {
@@ -132,12 +140,12 @@ function createString(place, id, callback) {
         '<div id="content">' +
         '<div id="siteNotice">' +
         "</div>" +
-        `<h1 id="firstHeading" class="firstHeading">${place.name}</h1>` +
+        `<h1 id="firstHeading" class="firstHeading">${name}</h1>` +
         '<div id="bodyContent">' +
         `<p> ${place.formatted_address}, ${place.rating}/5 </p>` +
-        `<p> Open Now: ${openText} </p>` +
+        `<p> ${openText} </p>` +
         `<p>Attribution: GoogleMaps API </p>` +
-        `<a href = "./AddReview.html?locationId=` + id + `&location_name=` + place.name + `">Add Review</a></p>` +
+        `<a href = "./AddReview.html?locationId=` + id + `&location_name=` + name + `">Add Review</a></p>` +
         `<h2>${reviewText}</h2>`;
       for (var i = 0; i < data.length; i++) {
 	contentString += '<div class="user_review">';

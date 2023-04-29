@@ -60,6 +60,8 @@ body {
 
 .user_review {
 	border: 1px solid black;
+	margin: 5px 0;
+	padding: 3px;
 }
 
 @keyframes fadeIn {

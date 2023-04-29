@@ -2,8 +2,9 @@
 <html>
 <head>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<title>My Reviews</title>
 	<script>
 	    $(function(){
 			if (sessionStorage.getItem("user_id") != "") {
@@ -16,6 +17,9 @@
 	</script>
 	<style>
 		body{
+			height: 100%;
+	  		margin: 0;
+	  		padding: 0;
 			background: rgb(206,195,236);
 			background: radial-gradient(circle, rgba(206,195,236,1) 37%, rgba(124,13,224,1) 100%);
 		}
@@ -31,7 +35,8 @@
   		flex-direction: column;
   		padding-right:15px;
   		padding-left:15px;
-  		margin-bottom:20px;
+  		margin: 20px 0;
+  		background: white;
 	}
 	.row1 {
 	  display: flex;
@@ -45,7 +50,12 @@
 	  justify-content: space-between;
 	  align-items: center;
 	  height:50%;
+	  
 	}
+	.star-rating {
+		font-size: 1em;
+	}
+	
 	</style>
 	
 	<script type="module" src="./my-reviews.js"></script>

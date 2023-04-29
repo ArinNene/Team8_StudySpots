@@ -35,6 +35,7 @@ public class Location extends HttpServlet {
 		
 		Connection conn = null;
 		Statement st = null;
+		PreparedStatement pst = null;
 		ResultSet rs = null;
 		
 		String method = req.getParameter("method");
@@ -137,9 +138,12 @@ public class Location extends HttpServlet {
 				int locationId = Integer.parseInt(locationIdS);
 				int userId = Integer.parseInt(userIdS);
 				int rating = Integer.parseInt(ratingS);
-				
+				pst = conn.prepareStatement("SELECT * FROM Users WHERE userId=" + userId);
+				rs = pst.executeQuery();
+				rs.next();
+				String username = rs.getString("firstName") + ' ' + rs.getString("lastName");
 				st = conn.createStatement();
-				rs = st.executeQuery("INSERT INTO LocationReview (location_id, user_id, location_review, rating) VALUES (" + locationId + ", " + userId + ", '" + locationReview + "', " + rating);
+				st.executeUpdate("INSERT INTO LocationReview (location_id, user_id, location_review, rating, username) VALUES (" + locationId + ", " + userId + ", '" + locationReview + "', " + rating + ",'" + username + "');");
 				pw.write(gson.toJson(1));
 				pw.flush();
 			} catch (SQLException e) {

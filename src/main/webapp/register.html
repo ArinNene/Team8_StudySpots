@@ -5,10 +5,11 @@
 	<link rel="stylesheet" href = "register.css">
 	<script src="register.js"></script>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<title>Register</title>
 	
 	<script>
 	$(function(){
-		if (sessionStorage.getItem("user_id") != "") {
+		if (sessionStorage.getItem("user_id")) {
 			$("#navbar").load("navbarSignedIn.html");
 		}
 		else {
@@ -18,6 +19,9 @@
 	</script>
 	<style>
 	body{
+		height: 100%;
+  		margin: 0;
+  		padding: 0;
 		background: rgb(206,195,236);
 		background: radial-gradient(circle, rgba(206,195,236,1) 37%, rgba(124,13,224,1) 100%);
 	}
@@ -87,7 +91,7 @@
 		      			<label for="confirm-password">Confirm Password:</label>
 		      			<input type="password" id="confirm-password" name="confirmPassword" required>
 		      			
-		      			<input type="submit" value="Submit" onClick = "handleRegister()">
+		      			<input type="submit" value="Submit" onClick = "handleRegister(); return false;">
 
     			</fieldset>
     		</form>  

@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Login</title>
+<title>Add Review</title>
 	<link rel="stylesheet" href = "login.css">
 	<script src="AddReview.js"></script>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -12,7 +12,7 @@
 	$(function(){
 		var url_string = window.location;
 		var url = new URL(url_string);
-		var locationId = url.searchParams.get("locationId");
+		const locationId = url.searchParams.get("locationId");
 		var locationName = url.searchParams.get("location_name");
 		
 		if (sessionStorage.getItem("user_id") != "") {
@@ -22,6 +22,7 @@
 		$("#navbar").load("navbar.html");
 		}
 		
+		document.getElementById("review-title").setAttribute("loc_name", locationName);
 		document.getElementById("review-title").innerHTML = "<h4>Write a review for " + locationName + ":</h4>";
 		
 		$(".star-rating span").on("click", function() {
@@ -38,8 +39,8 @@
 		});
 
 		
-		document.getElementById("locationIdPass").innerHTML = "<input type='hidden' id='question' name='question' value='" + locationId + "'>"
-		document.getElementById("locationName").innerHTML = "<input type='hidden' id='question' name='question' value='" + locationName + "'>"
+		document.getElementById("locationIdNumber").innerHTML = "<input type='hidden' id='locationIdPass' name='locationIdPass' value='" + locationId + "'>"
+		document.getElementById("locationName").innerHTML = "<input type='hidden' id='locationName' name='locationName' value='" + locationName + "'>"
 		
 	});
 	
@@ -107,7 +108,7 @@
     				<legend id = >Add Review</legend>
     					<div id="review-title">
     					</div>
-    					<div id ="locationIdPass">
+    					<div id ="locationIdNumber">
     					</div>
     					<div id ="locationName">
     					</div>
@@ -119,9 +120,9 @@
 							<span class="fa fa-star fa-star-o" data-rating="5"></span>
   						  <input type="hidden" name="rating" id="rating" value="0">
 						</div>
-		      			<input type="text" id="review-text" name="review-text" required>
+		      			<input type="text" id="review-text" name="review-text" autocomplete="off" required>
 		      			
-						<input type="submit" value="Submit" onClick = "handleAddReview()" id="submit-review">
+						<input type="submit" value="Submit" onClick = "return handleAddReview();" id="submit-review">
     			</fieldset>
     		</form>  
 

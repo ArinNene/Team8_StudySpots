@@ -3,8 +3,8 @@
  */
 
  function handleRegister() {
-    const firstName = document.getElementById("firstName").value;
-    const lastName = document.getElementById("lastName").value;
+    const firstName = document.getElementById("firstname").value;
+    const lastName = document.getElementById("lastname").value;
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
 
@@ -15,6 +15,11 @@
 		var response = xhttp.responseText;
 		if (response === '404') {
 			alert("Username or Email already taken");
+		}
+		else {
+			 sessionStorage.setItem("user_id", response)
+			 alert("Registration successful.")
+             window.location.href = "index.html";
 		}
 	}
 	}
