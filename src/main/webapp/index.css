@@ -58,6 +58,10 @@ body {
 	animation: fadeIn 1s;
 }
 
+.user_review {
+	border: 1px solid black;
+}
+
 @keyframes fadeIn {
 	0% {
 		opacity: 0;
