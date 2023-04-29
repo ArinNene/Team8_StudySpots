@@ -126,6 +126,7 @@ function createString(place, id, callback) {
   rxhttp.onreadystatechange = function() {
     if (rxhttp.readyState === rxhttp.DONE) {
       var data = JSON.parse(rxhttp.responseText);
+      var openText = place.opening_hours.open_now ? "Open Now" : "Closed";
       var contentString =
         '<div id="content">' +
         '<div id="siteNotice">' +
