@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Login</title>
+	<link rel="stylesheet" href = "login.css">
+	<script src="AddReview.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<script>
+	$(function(){
+		var url_string = window.location;
+		var url = new URL(url_string);
+		var locationId = url.searchParams.get("locationId");
+		var locationName = url.searchParams.get("location_name");
+		
+		if (sessionStorage.getItem("user_id") != "") {
+			$("#navbar").load("navbarSignedIn.html");
+		}
+		else {
+		$("#navbar").load("navbar.html");
+		}
+		
+		document.getElementById("review-title").innerHTML = "<h4>Write a review for " + locationName + ":</h4>";
+		
+		$(".star-rating span").on("click", function() {
+		    var rating = $(this).data("rating");
+		    selectedRating = rating;
+		    $(".star-rating span").each(function() {
+		        if ($(this).data("rating") <= rating) {
+		            $(this).removeClass("fa-star-o").addClass("fa-star yellow");
+		        } else {
+		            $(this).removeClass("fa-star yellow").addClass("fa-star-o");
+		        }
+		    });
+		    $("#rating").val(selectedRating);
+		});
+
+		
+		document.getElementById("locationIdPass").innerHTML = "<input type='hidden' id='question' name='question' value='" + locationId + "'>"
+		document.getElementById("locationName").innerHTML = "<input type='hidden' id='question' name='question' value='" + locationName + "'>"
+		
+	});
+	
+	</script>
+		<style>
+	body{
+		background: rgb(206,195,236);
+		background: radial-gradient(circle, rgba(206,195,236,1) 37%, rgba(124,13,224,1) 100%);
+	}
+	form {
+	  width: 500px; /* Set the width of the form */
+	  margin: auto; /* Center the form horizontally */
+	  padding: 20px;
+	  background: white;
+	  border-radius: 10px;
+	  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2); /* Add a shadow effect */
+	  margin-top: 20vh;
+	  display: flex;
+	  flex-direction:column;
+	}
+	legend{
+		text-align: center;
+		font-size:24px;
+	}
+	input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+		  display: block;
+		  width: 90%;
+		  padding: 10px;
+		  margin-bottom: 20px;
+		  border-radius: 5px;
+		  border: 1px solid #ccc;
+	}
+    input[type="submit"] {
+	  background-color: #800080;
+	  color: #fff;
+	  border: none;
+	  border-radius: 5px;
+	  padding: 10px 20px;
+	  cursor: pointer;
+	  margin-top: 20px;
+	  font-weight: bold;
+	  margin: 0 auto;
+   }
+   
+  	.star-rating .fa-star.yellow {
+		color: #ffcc00;
+	}
+	
+  input[type="submit"]:hover {
+  background-color: #fff;
+  color: #800080;
+  transition: all 0.3s ease-in-out;
+}
+	label{
+		text-align:center;
+	}
+	</style>
+</head>
+<body>
+<div id="navbar"></div>
+    		<form id="login" >
+    			 <fieldset>
+    				<legend id = >Add Review</legend>
+    					<div id="review-title">
+    					</div>
+    					<div id ="locationIdPass">
+    					</div>
+    					<div id ="locationName">
+    					</div>
+    					<div class="star-rating">
+							<span class="fa fa-star fa-star-o" data-rating="1"></span>
+							<span class="fa fa-star fa-star-o" data-rating="2"></span>
+							<span class="fa fa-star fa-star-o" data-rating="3"></span>
+							<span class="fa fa-star fa-star-o" data-rating="4"></span>
+							<span class="fa fa-star fa-star-o" data-rating="5"></span>
+  						  <input type="hidden" name="rating" id="rating" value="0">
+						</div>
+		      			<input type="text" id="review-text" name="review-text" required>
+		      			
+						<input type="submit" value="Submit" onClick = "handleAddReview()" id="submit-review">
+    			</fieldset>
+    		</form>  
+
+</body>
+
+</html>

@@ -136,6 +136,7 @@ function createString(place, id, callback) {
         `<p> ${place.formatted_address}, ${place.rating}/5 </p>` +
         `<p> Open Now: ${openText} </p>` +
         `<p>Attribution: GoogleMaps API </p>` +
+        `<a href = "./AddReview.html?locationId=` + id + `&location_name=` + place.name + `">Add Review</a></p>` +
         '<h2>Reviews:</h2>';
       for (var i = 0; i < data.length; i++) {
 	contentString += '<div class="user_review">';
