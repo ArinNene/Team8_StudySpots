@@ -137,8 +137,10 @@ function createString(place, id, callback) {
         `<p>Attribution: GoogleMaps API </p>` +
         '<h2>Reviews:</h2>';
       for (var i = 0; i < data.length; i++) {
+	contentString += '<div class="user_review">';
         contentString += '<h3>' + data[i].username + ': </h3>';
         contentString += '<p>' + data[i].locationReview + '</p>';
+	contentString += "</div>";
       }
       contentString += "</div>" + "</div>";
       callback(contentString);
