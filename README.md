@@ -13,3 +13,9 @@ The above should work, not sure though.
 
 After pulling from the repo, you will have to add your local version of a mysql-connector.jar for use with MySQL.
 You should create a localproperties.java file with your SQL link saved as a global variable to make sure pulls don't overwrite sql links in any relevant files.
+
+Presentation:
+https://drive.google.com/file/d/1hqnFFOr3Da3xIgD9QAaVKX5rqUx3stoA/view
+
+Demo:
+https://drive.google.com/file/d/1P2_ZbNg0ijGCO09odt22XNJbseSvQ7na/view
